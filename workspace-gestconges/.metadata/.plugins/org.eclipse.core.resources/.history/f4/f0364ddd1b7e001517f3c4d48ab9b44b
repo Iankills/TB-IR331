@@ -1,0 +1,78 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Création Conges</title>
+<!-- test du script -->
+<style type="text/css">
+
+.main {
+width:200px;
+border:1px solid black;
+}
+
+.month {
+background-color:black;
+font:bold 12px verdana;
+color:white;
+}
+
+.daysofweek {
+background-color:gray;
+font:bold 12px verdana;
+color:white;
+}
+
+.days {
+font-size: 12px;
+font-family:verdana;
+color:black;
+background-color: lightyellow;
+padding: 2px;
+}
+
+.days #today{
+font-weight: bold;
+color: red;
+}
+
+</style>
+
+
+<script type="text/javascript" src="basiccalendar.js">
+
+/***********************************************
+* Basic Calendar-By Brian Gosselin at http://scriptasylum.com/bgaudiodr/
+* Script featured on Dynamic Drive (http://www.dynamicdrive.com)
+* This notice must stay intact for use
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script> 
+
+
+</head>
+<body>
+
+	<form method="get" action="template.jsp">
+
+		<input type="hidden" name="action" value="traitement_conges" />
+		<table id="affichage">
+			<tr>
+				<th>debut conges :<font color="red">*</font></th>
+				<td><input type="text" name='debutconges' placeholder="format jj/mm/aaaa" /></td>
+			</tr>
+			<tr>
+				<th>fin conges :<font color="red">*</font></th>
+			    <td><input type="text" name='finconges' placeholder="format jj/mm/aaaa" /></td>
+				</td>
+			</tr>
+		</table>
+		<p><input type="submit" value="Valider" /></p>
+		<p><input type="reset" value="remettre à zéro" /></p>
+		<p class="erreur">* : Champs à remplir obligatoirement.</p>
+	</form>
+</body>
+</html>

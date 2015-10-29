@@ -1,0 +1,64 @@
+package gestConges.data.dao;
+
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import gestConges.data.model.Conge;
+import gestConges.data.model.Salarie;
+
+/**
+ * Session Bean implementation class CongeDAO
+ */
+@Stateless
+@LocalBean
+public class CongeDAO implements DAO<Conge> {
+
+	@PersistenceContext
+	EntityManager entityManager;
+	
+    /**
+     * Default constructor. 
+     */
+    public CongeDAO() { }
+
+	@Override
+	public Conge create(Conge entity) 
+	{
+		entityManager.persist(entity);
+		return entity;
+	}
+
+	@Override
+	public Conge findById(int id) 
+	{
+			return entityManager.find(Conge.class, id);
+	}
+
+	@Override
+	public Conge update(Conge entity)
+	{
+			return entity;
+	}
+
+	@Override
+	public void delete(Conge entity)
+	{
+			entityManager.remove(entity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Conge> findAll() {
+		// TODO Auto-generated method stub
+		return (List<Conge>) query.getResultList();
+	}
+	
+
+		Query query = entityManager.createQuery("select salarie from Salarie salarie");
+		return (List<Salarie>) query.getResultList();
+	
+}

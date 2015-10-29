@@ -1,0 +1,74 @@
+package gestConges.data.dao;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import gestConges.data.model.Conge;
+
+/**
+ * Session Bean implementation class CongeDAO
+ */
+@Stateless
+@LocalBean
+public class CongeDAO implements DAO<Conge> {
+
+	@PersistenceContext
+	EntityManager entityManager;
+	
+    /**
+     * Default constructor. 
+     */
+    public CongeDAO() { }
+
+	@Override
+	public Conge create(Conge entity) 
+	{
+		entityManager.persist(entity);
+		return entity;
+	}
+
+	@Override
+	public Conge findById(int id) 
+	{
+			return entityManager.find(Conge.class, id);
+	}
+
+	@Override
+	public Conge update(Conge entity)
+	{
+			return entity;
+	}
+
+	@Override
+	public void delete(Conge entity)
+	{
+			entityManager.remove(entity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Conge> findAll() {
+		Query query = entityManager.createQuery("select conge from Conge conge");
+		return (List<Conge>) query.getResultList();
+	}
+
+	public List<Conge> findCongeById(int id) {
+		// TODO Auto-generated method stub
+		
+		  public List<OffreEmploi> findByEntreprise(int idEntreprise)
+		 	{
+		 		Query query = entityManager.createQuery("select offreEmploi from OffreEmploi offreEmploi where offreEmploi.entreprise.id = :idE order by offreEmploi.id desc");
+		 		
+		 		query.setParameter("idE", idEntreprise);
+		 		List<Conge> l = query.getResultList();
+
+		 		return l;
+	}
+	
+}

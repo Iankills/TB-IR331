@@ -1,0 +1,51 @@
+package gestConges.data.dao;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import gestConges.data.model.Conge;
+import gestConges.data.model.Salarie;
+
+/**
+ * Session Bean implementation class CongeDAO
+ */
+@Stateless
+@LocalBean
+public class CongeDAO implements DAO<Conge> {
+
+	@PersistenceContext
+	EntityManager entityManager;
+	
+    /**
+     * Default constructor. 
+     */
+    public CongeDAO() { }
+
+	@Override
+	public Conge create(Conge entity) 
+	{
+		entityManager.persist(entity);
+		return entity;
+	}
+
+	@Override
+	public Conge findById(int id) 
+	{
+			return entityManager.find(Conge.class, id);
+	}
+
+	@Override
+	public Conge update(Conge entity)
+	{
+			return entity;
+	}
+
+	@Override
+	public void delete(Conge entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,20 @@
+package gestConges.data.dao;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+/**
+ * Session Bean implementation class CongeDAO
+ */
+@Stateless
+@LocalBean
+public class CongeDAO {
+
+    /**
+     * Default constructor. 
+     */
+    public CongeDAO() {
+        // TODO Auto-generated constructor stub
+    }
+
+}

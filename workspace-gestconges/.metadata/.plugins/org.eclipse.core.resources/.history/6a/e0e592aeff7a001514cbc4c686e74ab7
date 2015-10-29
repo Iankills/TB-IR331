@@ -1,0 +1,8 @@
+package gestConges.service;
+
+import javax.ejb.Remote;
+
+@Remote
+public interface IGestionConges {
+
+}

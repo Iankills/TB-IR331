@@ -1,0 +1,116 @@
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="gestConges.data.model.Salarie"%>
+<%@page import="gestConges.service.IGestionSalarie"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%
+	Object utilisateur = session.getAttribute("utilisateur");
+%>
+
+<h2>Menu administration</h2>
+<ul>
+  <li>
+    Gestion des Conges
+    <ul>
+    <hr/>
+	    <ul>
+        <li class="menu"><a href="deconnexion.jsp">Déconnexion</a></li>
+      </ul>
+		<!--<li class="menu"><a href="template.jsp?action=nouveau_conges">Nouveau conges</a></li>-->
+    	<!--<li class="menu"><a href="template.jsp?action=liste_conges">Liste des conges</a></li>-->
+    </ul>
+  </li>
+</ul>
+
+	<%
+		if(session.getAttribute("utilisateur") == null)
+			  {
+	%>
+			<hr/>
+			<ul>
+  	  	<li class="menu"><a href="template.jsp?action=connexion">Connexion</a></li>
+  	  </ul>
+	  	<%
+	  		}
+	  	else
+	  		{
+	  	%>
+      <hr/>
+	    <%
+	    	//IGestionConges gestionConges = (IGestionConges) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
+	    	          if(utilisateur instanceof Salarie && ((Salarie)utilisateur).getIsmanager() == false && ((Salarie)utilisateur).getIsrh()==false )
+	    	          {
+	    	         // 	IGestionSalarie  gestionSalarie  = (IGestionSalarie) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
+
+	    	          	Salarie e = (Salarie) utilisateur;
+	    %>
+        <h2>Menu Conges</h2>
+	      <ul>
+          <!--<li class="menu"><a href="template.jsp?action=liste_conge&id=<%=e.getId()%>">Liste de mes conge</a></li>-->
+          <li class="menu"><a href="template.jsp?action=nouveau_conges">Nouveau conges</a></li>
+        </ul>
+        <ul>
+         <!-- <li class="menu"><a href="template.jsp?action=supprimer_conges&id=<%=e.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre entreprise et toutes vos offres d\'emploi?\n\nAttention, cette opération n\'est pas réversible !\n\n');">Retirer mon conges</a></li>-->
+        </ul>
+	      <hr/>
+	      <h2>Menu messages</h2>
+	      <ul>
+	        <!--<li class="menu"><a href="template.jsp?action=liste_messages">Messages recu</a></li>-->
+	      </ul>
+        <%
+        	}
+              else if(utilisateur instanceof Salarie && ((Salarie)utilisateur).getIsmanager() == true && ((Salarie)utilisateur).getIsrh()==false )
+              {
+              //	IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+
+              	Salarie m = (Salarie) utilisateur;
+        %>
+        <h2>Menu Conges</h2>
+	      <ul>
+         <!-- <li class="menu"><a href="template.jsp?action=liste_conge&id=<%=m.getId()%>">Liste de mes conge</a></li>-->
+         <!-- <li class="menu"><a href="template.jsp?action=liste_conge&id=<%=m.getId()%>">Liste des conges à valider</a></li>-->
+         <!-- <li class="menu"><a href="template.jsp?action=nouveu_conge">Nouveau conge</a></li>-->
+        </ul>
+        <ul>
+         <!-- <li style="list-style-image: url(images/effacement.png)" class="menu"><a href="template.jsp?action=supprimer_conges&id=<%=m.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre entreprise et toutes vos offres d\'emploi?\n\nAttention, cette opération n\'est pas réversible !\n\n');">Retirer mon conges</a></li>-->
+        </ul>
+	      <hr/>
+	      <h2>Menu messages</h2>
+	      <ul>
+	      <!--  <li class="menu"><a href="template.jsp?action=liste_messages">Messages recu</a></li>-->
+	      </ul>
+	      
+	      <%
+        	}
+              else if(utilisateur instanceof Salarie && ((Salarie)utilisateur).getIsmanager() == false && ((Salarie)utilisateur).getIsrh()==true )
+              {
+              //	IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+
+              	Salarie r = (Salarie) utilisateur;
+        %>
+        <h2>Menu Conges</h2>
+	      <ul>
+        <!--  <li class="menu"><a href="template.jsp?action=liste_conge&id=<%=r.getId()%>">Liste de mes conge</a></li>-->
+          <!--<li class="menu"><a href="template.jsp?action=liste_conge&id=<%=r.getId()%>">Liste des conges à valider</a></li>-->
+         <!-- <li class="menu"><a href="template.jsp?action=nouveu_conge">Nouveau conge</a></li>-->
+        </ul>
+        <ul>
+        <!--  <li style="list-style-image: url(images/effacement.png)" class="menu"><a href="template.jsp?action=supprimer_conges&id=<%=r.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre entreprise et toutes vos offres d\'emploi?\n\nAttention, cette opération n\'est pas réversible !\n\n');">Retirer mon conges</a></li>-->
+        </ul>
+	      <hr/>
+	      <h2>Menu messages</h2>
+	      <ul>
+	     <!--  <li class="menu"><a href="template.jsp?action=liste_messages">Messages recu</a></li>-->
+	      </ul>
+	      
+	      
+<%
+      }
+	    %>
+      
+	    
+	    <%
+	  }
+	%>
+<hr/>

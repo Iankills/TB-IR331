@@ -1,0 +1,23 @@
+package gestConges.service;
+
+import gestConges.data.model.Conge;
+
+import javax.ejb.Remote;
+
+import java.util.Date;
+import java.util.List;
+
+@Remote
+public interface IGestionConges {
+
+	public static final String JNDI_NAME= "java:global/gestConges_EAR/gestConges_EJB/GestionConges!gestConges.service.IGestionConges";
+	
+	public List<Conge> listeConge();
+
+	public Conge addConge(int ids, String status, String debutconges, String finconges);
+	
+	public List<Conge> listeDesOffresPourUnSalarie(int id);
+
+	public double calculPeriode(String debutconges, String finconges);
+}
+ 

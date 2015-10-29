@@ -1,0 +1,123 @@
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
+                eu.telecom_bretagne.cabinet_recrutement.service.*,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.*,
+                java.util.*"%>               
+<%
+// Recuperation des parametre (nom, ville , descriptif)
+
+SimpleDateFormat dateConv = new SimpleDateFormat("dd/MM/yyyy");
+
+//obligatoire
+String nom = request.getParameter("nom");
+String prenom = request.getParameter("prenom");
+String dateNaiss = request.getParameter("dateNaissance");
+String adresseP = request.getParameter("adressePostale");
+String adresseE = request.getParameter("adresseEmail");
+String cv = request.getParameter("cv");
+String niveau = request.getParameter("niveau");
+String[] secteur = request.getParameterValues("secteur");
+
+%>
+                
+                
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Traitement création candidature</title>
+</head>
+<body>
+                   	<%
+                        if( nom.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ Nom n'est pas rempli! Veuillez rentrez un nom pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>  
+					<%
+                        }else if( prenom.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ Prénom n'est pas rempli! Veuillez rentrez un prénom pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div> 
+					<%
+						}else if( dateNaiss.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ Date de naissance n'est pas rempli! Veuillez rentrez une date de naissance pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div> 	
+							
+					<%
+						}else if( adresseP.equals("") ){
+                    %>
+                    		<div class="erreur">    
+  							<label >Le champ Adresse Postale n'est pas rempli! Veuillez rentrez une adresse pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>
+                    <%
+						}else if( cv.equals("") ){
+                    %>
+                    		<div class="erreur">    
+  							<label >Le champ CV n'est pas rempli! Veuillez rentrez un CV pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>
+                    <%
+						}else if( niveau.equals("") ){
+                    %>
+                  			<div class="erreur">    
+  							<label >Le champ Niveau d'activité n'est pas rempli! Veuillez rentrez un niveau d'activité pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>
+                    <%
+						}else if( secteur.equals("") ){
+                    %>			
+                   			<div class="erreur">    
+  							<label >Le champ Secteur d'activité n'est pas rempli! Veuillez rentrez un Secteur d'activité pour enregistrer une Candidature</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>							
+					<%
+                        }else {
+
+                                // Recuperation du service (bean session)
+                                IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+                                
+                                List<Integer> id_SectAct = new ArrayList<Integer>();
+                                for(String id : secteur){
+                                	id_SectAct.add(Integer.parseInt(id));
+                                }
+                                Candidature candidatureAjoutee;
+                                candidatureAjoutee = serviceCandidature.addCandidat(nom, prenom, dateNaiss,adresseP, adresseE, cv, niveau, id_SectAct);
+                                %>
+                                
+                            <h2>Recapitulatif de la candidature cree :</h2>
+                           
+                                    <p><u>Nom : </u><%=candidatureAjoutee.getNom()%></p>  
+                                    <p><u>Prenom : </u><%=candidatureAjoutee.getPrenom()%></p>  
+                                    <p><u>Date Naissance :</u><%=candidatureAjoutee.getDatenaissance()%></p>  
+                                    <p><u>Date Naissance :</u><%=candidatureAjoutee.getDatedepot()%></p>  
+           							<p><u>Adresse postale (ville) :</u> <%=candidatureAjoutee.getAdressepostale()%></p> 
+           							<p><u>Adresse email :</u> <%=candidatureAjoutee.getAdresseemail()%></p> 
+           							<p><u>CV :</u> <%=candidatureAjoutee.getCv()%></p> 
+                                    <p><u>Niveau de qualification:</u> <%=candidatureAjoutee.getNiveauQualification().getIntitule()%></p>  
+                                    <p><u>Secteur Activité:</u>  
+								     <%
+								     for(SecteurActivite sa : candidatureAjoutee.getSecteurActivites()){ 
+								     %>
+								    <td><%=sa.getIntitule() %></td>
+								     <%
+								     }  
+								     %>
+                                	</p>
+                        <p><a href="index.jsp">Retour au menu</a></p> 
+                        <% 
+                        } 
+                        %>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;gestConges_WebGUI/WebContent/Bandeau.jsp&apos; to &apos;bandeau.jsp&apos;" description="Rename resource &apos;Bandeau.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/Bandeau.jsp" name="bandeau.jsp" stamp="1445812391274" updateReferences="true"/>
+</session>

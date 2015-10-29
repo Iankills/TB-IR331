@@ -1,0 +1,44 @@
+package gestConges.data.dao;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+/**
+ * Session Bean implementation class SalarieDAO
+ */
+@Stateless
+@LocalBean
+public class SalarieDAO implements DAO<Salarie> {
+
+    /**
+     * Default constructor. 
+     */
+    public SalarieDAO() {
+        // TODO Auto-generated constructor stub
+
+
+@Override
+public Sa create(Sa entity) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public Sa findById(int id) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public Sa update(Sa entity) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public void delete(Sa entity) {
+	// TODO Auto-generated method stub
+	
+}    }
+
+}

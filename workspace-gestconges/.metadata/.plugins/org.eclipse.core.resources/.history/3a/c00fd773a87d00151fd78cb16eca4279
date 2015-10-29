@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="gestConges.front.utils.*,
+                java.util.*"%>
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="gestConges.data.model.Salarie"%>
+<%@page import="gestConges.service.IGestionSalarie"%>
+
+<%
+String idConge = request.getParameter("id_conge");
+
+// Récupération du servicecongés
+IGestionConges gestionConges = (IGestionConges) ServicesLocator.getInstance().getRemoteInterface("GestionConges");
+IGestionSalarie gestionSalarie = (IGestionSalarie) ServicesLocator.getInstance().getRemoteInterface("GestionSalarie");
+//IServiceSecteurActivite secteurActivite = (IServiceSecteurActivite) ServicesLocator.getInstance().getRemoteInterface("ServiceSecteur");
+
+Conge conge = gestionConges.getConges(Integer.parseInt(idConge));
+
+conge.setStatus("Non_valide_N+1");
+gestionConges.miseAJour(conge);
+
+%>

@@ -1,0 +1,24 @@
+package gestConges.service;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+/**
+ * Session Bean implementation class GestionSalarie
+ */
+
+@Stateless
+@LocalBean
+public class GestionSalarie implements IGestionSalarie {
+
+	@EJB
+	SalarieDAO salarieDAO;
+	
+    /**
+     * Default constructor. 
+     */
+    public GestionSalarie() {
+        // TODO Auto-generated constructor stub
+    }
+
+}

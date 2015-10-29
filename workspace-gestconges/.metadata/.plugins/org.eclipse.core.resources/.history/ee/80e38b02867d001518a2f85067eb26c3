@@ -1,0 +1,71 @@
+package gestConges.data.dao;
+
+import gestConges.data.model.Conge;
+import gestConges.data.model.Salarie;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Session Bean implementation class SalarieDAO
+ */
+@Stateless
+@LocalBean
+public class SalarieDAO implements DAO<Salarie> {
+
+	@PersistenceContext
+	EntityManager entityManager;
+	
+    /**
+     * Default constructor. 
+     */
+    public SalarieDAO() { }
+
+	@Override
+	public Salarie create(Salarie entity) 
+	{
+			entityManager.persist(entity);
+			return entity;
+	}
+
+	@Override
+	public Salarie findById(int id) 
+	{
+			return entityManager.find(Salarie.class, id);
+	}
+
+	@Override
+	public Salarie update(Salarie salarie) 
+	{
+		Salarie entity = entityManager.merge(salarie);
+			return entity;
+	}
+
+	@Override
+	public void delete(Salarie entity) 
+	{
+			entityManager.remove(entity);
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Salarie> findAll() {
+		Query query = entityManager.createQuery("select salarie from Salarie salarie");
+		return (List<Salarie>) query.getResultList();
+	}
+	
+	public List<Salarie> findSalarieById(int idSalarie) {
+		// TODO Auto-generated method stub
+		 		Query query = entityManager.createQuery("select conge from Conge conge where conge.idemploye = :idS");
+		 		query.setParameter("idS", idSalarie);
+		 		List<Conge> l = query.getResultList();
+		 		return l;
+	}
+}

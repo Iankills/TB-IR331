@@ -1,0 +1,84 @@
+package gestConges.service;
+
+import java.util.*;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import gestConges.data.dao.CongeDAO;
+import gestConges.data.model.Conge;
+
+/**
+ * Session Bean implementation class GestionConges
+ */
+@Stateless
+@LocalBean
+public class GestionConges implements IGestionConges {
+	@EJB
+	private CongeDAO congeDAO;
+    /**
+     * Default constructor. 
+     */
+    public GestionConges() {
+        // TODO Auto-generated constructor stub
+    }
+    
+    @Override
+    public List<Conge> listeConge(){
+    	return congeDAO.findAll();
+    }
+    
+    @Override
+    public Conge addConge(int ids, String status, String debutconges, String finconges){
+    	
+    	System.out.println("La date de debut : " + debutconges);
+    	System.out.println("La date de fin : " + finconges);
+    	
+    	String[] debutCoupe = debutconges.split("/");
+    	System.out.println("date début découpe" + debutCoupe[0] + " [d1] : " + debutCoupe[1] + " [d2] : " + debutCoupe[2]);
+    	String[] finCoupe = finconges.split("/");
+    	System.out.println("date fin découpe [0] " + finCoupe[0] + " [f1] : " +  finCoupe[1] + " [f2] : " + finCoupe[2]);
+    	Conge myConge = new Conge();
+    	
+    	myConge.setIdemploye(ids);
+    	myConge.setStatus(status);
+    	myConge.setDebutconges(debutconges);
+    	myConge.setFinconges(finconges);
+    	
+    	//comptage de la période5
+    	 double compteur = 0;
+         Calendar calendar1 = new GregorianCalendar();
+         calendar1.set(Calendar.YEAR, Integer.parseInt(debutCoupe[2]));
+         calendar1.set(Calendar.MONTH, Integer.parseInt(debutCoupe[1]));
+         calendar1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(debutCoupe[0]));
+         Date date1 = calendar1.getTime();
+  
+         //  2006-08-15
+         Calendar calendar2 = new GregorianCalendar();
+         calendar2.set(Calendar.YEAR, Integer.parseInt(finCoupe[2]));
+         calendar2.set(Calendar.MONTH, Integer.parseInt(finCoupe[1]));
+         calendar2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(finCoupe[0]));
+         Date date2 = calendar2.getTime();
+  
+         // Différence
+         long diff = Math.abs(date2.getTime() - date1.getTime());
+         long numberOfDay = (long)diff/86400000;
+         System.out.println("Le nombre de jour est : " + numberOfDay);
+  
+          for(int i=0;i<=numberOfDay+1;i++){
+              if(calendar1.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY && calendar1.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY)
+                 compteur++;
+              calendar1.add(Calendar.DAY_OF_MONTH, 1);
+          }
+         System.out.println("Le nombre de jour ouvrés est : " + compteur); 
+    	
+    	 //int compteur = 2;
+         myConge.setPeriode(compteur);
+         congeDAO.create(myConge);
+    	return congeDAO.update(myConge);
+    }
+    
+
+}

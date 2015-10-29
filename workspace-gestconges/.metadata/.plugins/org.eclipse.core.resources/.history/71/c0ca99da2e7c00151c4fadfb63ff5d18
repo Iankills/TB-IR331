@@ -1,0 +1,77 @@
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@page import="gestConges.front.utils.ServicesLocator,
+                gestConges.service.*,
+                gestConges.data.model.*,
+                java.util.*"%>               
+<%
+SimpleDateFormat dateConv = new SimpleDateFormat("dd/MM/yyyy");
+//obligatoire
+String debutconges = request.getParameter("debutconges");
+String finconges = request.getParameter("finconges");
+
+%>
+                
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Traitement création candidature</title>
+</head>
+<body>
+                   	<%
+                        if( debutconges.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ debutconges n'est pas rempli! Veuillez rentrez une date de début</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>  
+					<%
+                        }else if( finconges.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ finconges n'est pas rempli! Veuillez rentrez une date de fin</label>  
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div> 
+					<%
+                        }else {
+
+                                // Recuperation du service (bean session)
+                                IGestionConges serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+                                
+                                List<Integer> id_SectAct = new ArrayList<Integer>();
+                                for(String id : secteur){
+                                	id_SectAct.add(Integer.parseInt(id));
+                                }
+                                Candidature candidatureAjoutee;
+                                candidatureAjoutee = serviceCandidature.addCandidat(nom, prenom, dateNaiss,adresseP, adresseE, cv, niveau, id_SectAct);
+                                %>
+                                
+                            <h2>Recapitulatif de la candidature cree :</h2>
+                           
+                                    <p><u>Nom : </u><%=candidatureAjoutee.getNom()%></p>  
+                                    <p><u>Prenom : </u><%=candidatureAjoutee.getPrenom()%></p>  
+                                    <p><u>Date Naissance :</u><%=candidatureAjoutee.getDatenaissance()%></p>  
+                                    <p><u>Date Naissance :</u><%=candidatureAjoutee.getDatedepot()%></p>  
+           							<p><u>Adresse postale (ville) :</u> <%=candidatureAjoutee.getAdressepostale()%></p> 
+           							<p><u>Adresse email :</u> <%=candidatureAjoutee.getAdresseemail()%></p> 
+           							<p><u>CV :</u> <%=candidatureAjoutee.getCv()%></p> 
+                                    <p><u>Niveau de qualification:</u> <%=candidatureAjoutee.getNiveauQualification().getIntitule()%></p>  
+                                    <p><u>Secteur Activité:</u>  
+								     <%
+								     for(SecteurActivite sa : candidatureAjoutee.getSecteurActivites()){ 
+								     %>
+								    <td><%=sa.getIntitule() %></td>
+								     <%
+								     }  
+								     %>
+                                	</p>
+                        <p><a href="index.jsp">Retour au menu</a></p> 
+                        <% 
+                        } 
+                        %>
+
+</body>
+</html>

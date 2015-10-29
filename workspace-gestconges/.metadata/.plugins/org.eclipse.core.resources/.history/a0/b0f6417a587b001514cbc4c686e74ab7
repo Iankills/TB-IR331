@@ -1,0 +1,49 @@
+<%@page import="java.util.List"%>
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%
+InitialContext ctx = new InitialContext();
+IGestionConges gestionConge =
+(IGestionConges) ctx.lookup(IGestionConges.JNDI_NAME);
+List <Conge> conges = gestionConge.listeConge();
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Gestion Conges</title>
+</head>
+<body>
+<h1>Gestion Conges</h1>
+<h2>Liste des conges:</h2>
+<table id="conges">
+<tr>
+<th>Identifiant</th>
+<th>Status</th>
+<th>rouge</th>
+<th></th>
+</tr>
+<%
+for (Conge conge: conges)
+{
+%>
+<tr>
+<td><%=conge.getId()%></td>
+<td>
+<a href="infos_conge.jsp?id=<%=conge.getId()%>"><%=conge.getId()%></a>
+</td>
+<td><i>TODO</i></td>
+<td>
+<a href="modifier_conges_form.jsp?id=<%=conge.getId()%>">Modifier</a>
+</td>
+</tr>
+<%
+}
+%>
+</table>
+<a href="index.jsp">Retour</a></body>
+</body>
+</html>

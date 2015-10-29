@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="gestConges.front.utils.*,
+                java.util.*"%>
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="gestConges.data.model.Salarie"%>
+<%@page import="gestConges.service.IGestionSalarie"%>
+
+<%
+String idString = request.getParameter("id_salarie");
+// Récupération du service
+IGestionConges gestionConges = (IGestionConges) ServicesLocator.getInstance().getRemoteInterface("GestionConges");
+//IServiceSecteurActivite secteurActivite = (IServiceSecteurActivite) ServicesLocator.getInstance().getRemoteInterface("ServiceSecteur");
+
+List<Conge> conges = gestionConges.listeDesOffresPourUnSalarie(Integer.parseInt(idString));
+%>
+
+<html>
+	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    	<title>Logiciel de conges :</title>
+    	<link rel="stylesheet" href="styles.css" type="text/css" />
+  	</head>
+
+  	<body>
+  
+		<h2>Liste des congés</h2>
+		<table id="affichage" border="1" >
+  			<tr BGCOLOR=GRAY style ="color: WHITE; font-size: medium; font-family: Arial">
+  			<th>Identifiant du congés</th>
+		    <th>Status</th>
+		    <th>Periode</th>
+		    <th>Début </th>
+		    <th>Fin</th>
+		    <th>Action</th>
+		  </tr>
+  			<%
+  			for (Conge conge : conges){
+  				
+  			%>
+  			<tr <%if(conge.getStatus().equals("cree")){%>BGCOLOR=GREEN <%}%>>
+  				<td><%= conge.getId()%></td>
+  				<td><%= conge.getStatus()%></td>
+  				<td><%= conge.getPeriode()%></td>
+  				<td><%= conge.getDebutconges()%></td>
+  				<td><%= conge.getFinconges()%></td>
+  				<td>
+  				<%if(conge.getStatus().equals("cree")){%>
+  				<a href="template.jsp?action=supprimer_conge&id_conges=<%=conge.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre conges ?\n\nAttention, cette opération n\'est pas réversible !\n\n');"><p>Annuler congés</p> </a>
+  				<%}%>
+  			 	<% if(conge.getStatus().equals("Non authorise N+1")){%>
+  				<a href="template.jsp?action=retirer_conge&id_conges=<%=conge.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre conges ?\n\nAttention, cette opération n\'est pas réversible !\n\n');"><p>Retirer congés de la liste</p> </a>
+  				<%}%>
+  				<% if(conge.getStatus().equals("Authorise N+1")){%>
+  				<a href="template.jsp?action=supprimer_conge&id_conges=<%=conge.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre conges ?\n\nAttention, cette opération n\'est pas réversible !\n\n');"><p>Annuler congés</p> </a>
+  				<%}%>
+  				<% if(conge.getStatus().equals("Non valide RH")){%>
+  				<a href="template.jsp?action=retirer_conge&id_conges=<%=conge.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre conges ?\n\nAttention, cette opération n\'est pas réversible !\n\n');"><p>Retirer congés de la liste</p> </a>
+  				<%}%>
+  				<% if(conge.getStatus().equals("Valide RH")){%>
+  				<a href="template.jsp?action=supprimer_conge&id_conges=<%=conge.getId()%>" onclick="return confirm('Êtes-vous sûr de vouloir retirer votre conges ?\n\nAttention, cette opération n\'est pas réversible !\n\n');"><p>Annuler congés</p> </a>
+  				<%}%>
+  				</td>
+  			</tr>	
+  			<%
+  			}
+  			%>
+
+		</table>
+    	<p><a href="index.jsp">Retour au menu</a></p>
+  	</body>
+</html>

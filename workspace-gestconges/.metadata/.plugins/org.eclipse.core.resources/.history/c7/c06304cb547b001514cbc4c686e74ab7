@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hello</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="java.util.List"%>
+<%@page import="eu.telecom_bretagne.CESI.service.IGestionAgent"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%
+InitialContext ctx = new InitialContext();
+IGestionConges gestionConge =
+(IGestionConges) ctx.lookup(IGestionConges.JNDI_NAME);
+List <Conge> conge = gestionConge.listeConge();
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CESI Home Page</title>
+</head>
+<body>
+<h1>Hello CESI</h1>
+<h2>Liste des agents:</h2>
+<table id="agents">
+<tr>
+<th>Identifiant</th>
+<th>Nom</th><th>Département</th>
+<th></th>
+</tr>
+<%
+for (Agent agent: agents)
+{
+%>
+<tr>
+<td><%=agent.getId()%></td>
+<td>
+<a href="infos_agent.jsp?id=<%=agent.getId()%>"><%=agent.getNom()%></a>
+</td>
+<td><i>TODO</i></td>
+<td>
+<a href="modifier_agent_form.jsp?id=<%=agent.getId()%>">Modifier</a>
+</td>
+</tr>
+<%
+}
+%>
+</table>
+<a href="index.jsp">Retour</a></body>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/CallinggestConges/src/gestConges/demo/AppelGestionConges.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="gestConges.demo.AppelGestionConges"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CallinggestConges"/>
+</launchConfiguration>

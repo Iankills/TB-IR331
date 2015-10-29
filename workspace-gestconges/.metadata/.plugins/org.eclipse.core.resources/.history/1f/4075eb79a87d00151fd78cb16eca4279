@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="gestConges.front.utils.*,
+                java.util.*"%>
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="gestConges.data.model.Salarie"%>
+<%@page import="gestConges.service.IGestionSalarie"%>
+
+<%
+String idConge = request.getParameter("id_conge");
+
+// Récupération du servicecongés
+IGestionConges gestionConges = (IGestionConges) ServicesLocator.getInstance().getRemoteInterface("GestionConges");
+IGestionSalarie gestionSalarie = (IGestionSalarie) ServicesLocator.getInstance().getRemoteInterface("GestionSalarie");
+//IServiceSecteurActivite secteurActivite = (IServiceSecteurActivite) ServicesLocator.getInstance().getRemoteInterface("ServiceSecteur");
+
+Conge conge = gestionConges.getConges(Integer.parseInt(idConge));
+
+conge.setStatus("Non_valide_N+1");
+gestionConges.miseAJour(conge);
+
+%>
+<html>
+
+  	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    	<title>supprimer entreprise</title>
+    	<link rel="stylesheet" href="styles.css" type="text/css" />
+  	</head>
+  
+  	<body>
+  		<%
+  		
+  	//session.invalidate();
+	//response.sendRedirect("liste_offre_entreprise.jsp");
+		%>
+		<META HTTP-EQUIV="Refresh" CONTENT="2; index.jsp"> 
+  		<h2>Conge non authorisé</h2>
+  		<p> Vous allez être redirigé vers la page d'acceuil </p>
+  		<p><a href="index.jsp">Retour au menu</a></p>
+  		
+ 	</body>
+</html>

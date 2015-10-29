@@ -1,0 +1,61 @@
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@page import="gestConges.front.utils.ServicesLocator,
+                gestConges.service.*,
+                gestConges.data.model.*,
+                java.util.*"%>               
+<%
+SimpleDateFormat dateConv = new SimpleDateFormat("dd/MM/yyyy");
+//obligatoire
+String debutconges = request.getParameter("debutconges");
+String finconges = request.getParameter("finconges");
+
+%>
+                
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Traitement création candidature</title>
+</head>
+<body>
+                   	<%
+                        if( debutconges.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ debutconges n'est pas rempli! Veuillez rentrez une date de début</label>    
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div>  
+					<%
+                        }else if( finconges.equals("") ){
+                    %>
+							<div class="erreur">    
+  							<label >Le champ finconges n'est pas rempli! Veuillez rentrez une date de fin</label>  
+							<p><a href="index.jsp">Retour au menu</a></p>
+							</div> 
+					<%
+                        }else {
+
+                                // Recuperation du service (bean session)
+                                IGestionConges gestionConges = (IGestionConges) ServicesLocator.getInstance().getRemoteInterface("GestionConges");
+                                
+                                Conge conge;
+                                conge = gestionConges.addConge(id, status, debutconges,finconges);
+                                %>
+                                
+                            <h2>Recapitulatif de la candidature cree :</h2>
+                           
+                                    <p><u>Status : </u><%=candidatureAjoutee.getNom()%></p>  
+                                    <p><u>Salarie : </u><%=candidatureAjoutee.getPrenom()%></p>  
+                                    <p><u>Date de début :</u><%=candidatureAjoutee.getDatenaissance()%></p>  
+                                    <p><u>Date de fin :</u><%=candidatureAjoutee.getDatedepot()%></p>  
+                                	</p>
+                        <p><a href="index.jsp">Retour au menu</a></p> 
+                        <% 
+                        } 
+                        %>
+
+</body>
+</html>

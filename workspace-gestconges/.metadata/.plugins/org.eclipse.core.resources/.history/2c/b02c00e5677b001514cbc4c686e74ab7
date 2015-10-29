@@ -1,0 +1,21 @@
+<%@page import="java.util.List"%>
+<%@page import="gestConges.data.model.Conge"%>
+<%@page import="gestConges.service.IGestionConges"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%
+InitialContext ctx = new InitialContext();
+IGestionConges gestionConge =
+(IGestionConges) ctx.lookup(IGestionConges.JNDI_NAME);
+List <Conge> conges = gestionConge.listeConge();
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

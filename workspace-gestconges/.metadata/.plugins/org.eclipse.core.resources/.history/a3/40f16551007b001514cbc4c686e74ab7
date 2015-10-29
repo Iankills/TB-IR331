@@ -1,0 +1,15 @@
+package gestConges.service;
+
+import gestConges.data.model.*;
+
+import javax.ejb.Remote;
+import java.util.List;
+
+import javax.ejb.Remote;
+
+@Remote
+public interface IGestionConges {
+
+	public List<Conges> listeConges();
+	
+}

@@ -1,0 +1,14 @@
+package gestConges.service;
+
+import gestConges.data.model.Salarie;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+@Remote
+public interface IGestionSalarie {
+	
+	public List<Salarie> listeSalaries();
+
+}

@@ -1,0 +1,37 @@
+package gestConges.demo;
+
+import gestConges.data.model.Conge;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+public class AppelGestionConges {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		test_listeConges();
+	}
+	
+	
+	public static IGestionConges getGestionConges(){
+		InitialContext ctx;
+		IGestionConges gestionConges = null;
+		try{
+			ctx = new InitialContext();
+			gestionConges = (IGestionConges) ctx.lookup(IGestionConges.JNDI_NAME);
+		}
+		catch (NamingException e){
+			//Unable to retrieve the context or the service
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return gestionConges;
+	}
+	
+	public static void test_listeConges(){
+		for (Conge conge : getGestionConges().listeAgents()){
+			System.out.println("Conge id: " + conge.getId() + "status:" + conge.getStatus());
+		}
+		
+	}
+}

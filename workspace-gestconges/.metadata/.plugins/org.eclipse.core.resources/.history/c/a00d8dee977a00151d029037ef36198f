@@ -1,0 +1,52 @@
+package gestConges.data.dao;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import gestConges.data.model.Salarie;
+
+/**
+ * Session Bean implementation class SalarieDAO
+ */
+@Stateless
+@LocalBean
+public class SalarieDAO implements DAO<Salarie> {
+
+	@PersistenceContext
+	EntityManager entityManager;
+	
+    /**
+     * Default constructor. 
+     */
+    public SalarieDAO() { }
+
+	@Override
+	public Salarie create(Salarie entity) 
+	{
+		entityManager.persist(entity);
+		return entity;
+	}
+
+	@Override
+	public Salarie findById(int id) 
+	{
+			return entityManager.find(Salarie.class, id);
+	}
+
+	@Override
+	public Salarie update(Salarie entity) 
+	{
+		return entity;
+	}
+
+	@Override
+	public void delete(Salarie entity) {
+		// TODO Auto-generated method stub
+		entityManager.remove(entity);
+		
+	}
+    
+
+}

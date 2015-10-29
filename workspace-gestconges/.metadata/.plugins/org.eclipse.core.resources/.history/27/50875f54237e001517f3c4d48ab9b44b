@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Création Conges</title>
+<!-- test du script -->
+<script type="text/javascript" src="calendarDateInput.js">
+
+/***********************************************
+* Jason's Date Input Calendar- By Jason Moon http://calendar.moonscript.com/dateinput.cfm
+* Script featured on and available at http://www.dynamicdrive.com
+* Keep this notice intact for use.
+***********************************************/
+</script>
+<!-- Fin test du script -->
+
+</head>
+<body>
+
+	<form method="get" action="template.jsp">
+
+		<input type="hidden" name="action" value="traitement_conges" />
+		<table id="affichage">
+			<tr>
+				<p>debut conges :<font color="red">*</font></p>
+				<script>DateInput('debutconges', true, 'DD/MM/YYYY')</script>
+				<input type="button" onClick="alert(this.form.debutconges.value)" value="Afficher la date de début de congés">
+			</tr>
+
+			<tr>
+				<p>fin conges :<font color="red">*</font></p>
+			    <!-- <td><input type="text" name='finconges' placeholder="format jj/mm/aaaa" /></td> -->
+			    <script>DateInput('finconges', true, 'DD/MM/YYYY')</script>
+				<input type="button" onClick="alert(this.form.finconges.value)" value="Afficher la date de fin de congés">
+			</tr>
+		</table>
+		<p><input type="submit" value="Valider" /></p>
+		<p><input type="reset" value="remettre à zéro" /></p>
+		<p class="erreur">* : Champs à remplir obligatoirement.</p>
+	</form>
+</body>
+</html>

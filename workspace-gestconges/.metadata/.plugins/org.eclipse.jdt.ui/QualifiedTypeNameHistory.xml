@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="gestConges.data.dao.SalarieDAO"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="gestConges.data.model.Salarie"/>
+<fullyQualifiedTypeName name="javax.persistence.Query"/>
+<fullyQualifiedTypeName name="javax.naming.InitialContext"/>
+<fullyQualifiedTypeName name="javax.naming.NamingException"/>
+<fullyQualifiedTypeName name="gestConges.data.model.Conge"/>
+<fullyQualifiedTypeName name="gestConges.service.IGestionConges"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+</qualifiedTypeNameHistroy>

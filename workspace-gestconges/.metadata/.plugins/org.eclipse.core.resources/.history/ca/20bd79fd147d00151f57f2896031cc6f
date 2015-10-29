@@ -1,0 +1,95 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@page import="gestConges.front.utils.ServicesLocator,
+				gestConges.service.IGestionConges,
+                gestConges.service.IGestionSalarie,
+                gestConges.service.GestionConges,
+                gestConges.service.GestionSalarie,
+                gestConges.data.model.Conge,
+                gestConges.data.model.Salarie"%>
+                
+<html>
+  	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    	<title>Connexion</title>
+    	<link rel="stylesheet" href="styles.css" type="text/css" />
+  	</head>
+
+ 	<body>
+		<h2>Connexion</h2>
+
+		<p>
+		Veuillez vous identifier avec votre numéro d'identifiant: </br>
+		</p>
+
+		<%
+		//Recuperation de l'identifiant
+  		String identifiant = request.getParameter("identifiant");
+		String password = request.getParameter("identifiant");
+
+		if(identifiant == null) 
+  		{
+  		%>
+			<form method="get" action="connexion.jsp" >
+		  		<!-- <input type="hidden" name="action" value="connexion" /> -->
+		  		<p>Identifiant : <input type="text" name="identifiant"/>
+		  		<p>Mot de passe : <input type="password" name="Password"/>
+		    	<input type="submit" value="Connexion"/>
+		  		</p>
+			</form>
+  		<%
+  		}
+  		else
+  		{
+  			if(identifiant.equals(""))
+  			{
+      		%>
+      		<p class="erreur">Veuillez renseignez votre numéro d'identifiant pour pouvoir vous connecter</p>
+      		<a href="index.jsp">Retour...</a>
+      		<%
+  			}else 
+  			{
+	    		// Récupération du service
+	  			IGestionSalarie gestionSalarie = (IGestionSalarie) ServicesLocator.getInstance().getRemoteInterface("GestionSalarie");
+	    		int id = Integer.parseInt(identifiant);
+	  			Salarie salarie = gestionSalarie.getSalarie(id);
+	  			boolean matchLogPass = false;
+	  			if(salarie == null)
+	  			{
+	  				%>
+	  				<p class="erreur">Aucun Salarie ne correspond à : <%=identifiant%></p>
+	  				<a href="index.jsp">Retour...</a>
+	  				<%
+	  			}
+	  			else if(identifiant == null)
+	  			{
+	  				%>
+	  				<p class="erreur">Il manque l'identifiant</p>
+	  				<a href="index.jsp">Retour...</a>
+	  				<%
+	  			}
+	  			else if(password == null)
+	  			{
+	  				%>
+	  				<p class="erreur">Il manque le mot de passe</p>
+	  				<a href="index.jsp">Retour...</a>
+	  				<%
+	  			}
+	  			else if(!salarie.getPassword().equals(password))
+	  			{
+	  				%>
+	  				<p class="erreur">Le mot de passe ne correspond pas au login</p>
+	  				<a href="index.jsp">Retour...</a>
+	  				<%
+	  			}
+	  			else
+	  			{
+	        		session.setAttribute("utilisateur",salarie);
+	        		response.sendRedirect("template.jsp");
+	  			}
+	  		}
+		}
+	  	
+		%>
+  	</body>
+</html>

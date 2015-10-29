@@ -1,0 +1,5 @@
+package gestConges.data.model;
+
+public interface DAO<T> {
+
+}

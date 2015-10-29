@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="gestConges_EAR">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="gestion_conges_jpa.jar" deploy-path="/lib" handle="module:/resource/gestion_conges_jpa/gestion_conges_jpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gestConges_EJB.jar" deploy-path="/" handle="module:/resource/gestConges_EJB/gestConges_EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gestConges_client.jar" deploy-path="/lib" handle="module:/resource/gestConges_client/gestConges_client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
